@@ -1,11 +1,9 @@
-type ERC20Minter_ERC20RewardsDeposit {
+type LockableUniswapV3Initializer_Collect {
   id: ID!
-  collection: String!
-  currency: String!
-  tokenId: BigInt!
-  recipient: String!
-  spender: String!
-  amount: String!
+  pool: String!
+  beneficiary: String!
+  fees0: BigInt!
+  fees1: BigInt!
   transactionHash: String!
   blockNumber: Int!
 }
