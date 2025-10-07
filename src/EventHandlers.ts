@@ -1,23 +1,20 @@
 /*
  * Please refer to https://docs.envio.dev for a thorough guide on all Envio indexer features
  */
-import { ERC20Minter, ERC20Minter_ERC20RewardsDeposit } from "generated";
-import getUsdcTransfer from "../lib/getUsdcTransfer";
+import {
+  LockableUniswapV3Initializer,
+  LockableUniswapV3Initializer_Collect,
+} from "generated";
 
-ERC20Minter.ERC20RewardsDeposit.handler(async ({ event, context }) => {
-  const usdcTransfer = await getUsdcTransfer(event);
-
-  const entity: ERC20Minter_ERC20RewardsDeposit = {
+LockableUniswapV3Initializer.Collect.handler(async ({ event, context }) => {
+  const entity: LockableUniswapV3Initializer_Collect = {
     id: `${event.chainId}_${event.block.number}_${event.logIndex}`,
-    collection: event.params.collection,
-    currency: event.params.currency,
-    tokenId: event.params.tokenId,
-    recipient: usdcTransfer.recipient,
-    spender: usdcTransfer.spender,
-    amount: usdcTransfer.amount,
+    pool: event.params.pool,
+    beneficiary: event.params.beneficiary,
+    fees0: event.params.fees0,
+    fees1: event.params.fees1,
     transactionHash: event.transaction.hash,
     blockNumber: event.block.number,
   };
-
-  context.ERC20Minter_ERC20RewardsDeposit.set(entity);
+  context.LockableUniswapV3Initializer_Collect.set(entity);
 });
